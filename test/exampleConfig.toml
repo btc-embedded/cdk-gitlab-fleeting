@@ -1,0 +1,34 @@
+concurrent = 10
+
+[[runners]]
+  name = "instance autoscaler example"
+  url = "https://gitlab.com"
+  token = "<token>"
+  shell = "sh"
+
+  executor = "instance"
+
+  # Autoscaler config
+  [runners.autoscaler]
+    plugin = "aws:latest" # in GitLab 16.11 and later, ensure you run `gitlab-runner fleeting install` to automatically install the plugin
+
+    # in GitLab 16.10 and earlier, manually install the plugin and use:
+    # plugin = "fleeting-plugin-aws"
+
+    capacity_per_instance = 1
+    max_use_count = 1
+    max_instances = 10
+
+    [runners.autoscaler.plugin_config] # plugin specific configuration (see plugin documentation)
+      name             = "my-linux-asg"                # AWS Autoscaling Group name
+      profile          = "default"                     # optional, default is 'default'
+      config_file      = "/home/user/.aws/config"      # optional, default is '~/.aws/config'
+      credentials_file = "/home/user/.aws/credentials" # optional, default is '~/.aws/credentials'
+
+    [runners.autoscaler.connector_config]
+      username          = "ec2-user"
+      use_external_addr = true
+      
+    [[runners.autoscaler.policy]]
+      idle_count = 5
+      idle_time = "20m0s"
