@@ -23,6 +23,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 24.x
+          package-manager-cache: false
       - name: Enable Corepack
         run: corepack enable
       - name: Setup Node.js
@@ -84,6 +85,7 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 24.x
+          package-manager-cache: false
       - name: Enable Corepack
         run: corepack enable
       - name: Checkout

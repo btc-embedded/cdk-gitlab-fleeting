@@ -44,6 +44,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
       uses: "actions/setup-node@v5",
       with: {
         "node-version": "24.x",
+        "package-manager-cache": false,
       },
     },
     {
