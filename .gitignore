@@ -3,6 +3,7 @@
 !/.projen/tasks.json
 !/.projen/deps.json
 !/.projen/files.json
+!/.github/workflows/pull-request-lint.yml
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -40,8 +41,10 @@ jspm_packages/
 /test-reports/
 junit.xml
 /coverage/
+!/.github/workflows/build.yml
 /dist/changelog.md
 /dist/version.txt
+!/.github/workflows/release.yml
 !/.prettierignore
 !/.prettierrc.json
 !/test/

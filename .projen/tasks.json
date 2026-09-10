@@ -195,35 +195,9 @@
         }
       ]
     },
-    "post-upgrade": {
-      "name": "post-upgrade",
-      "description": "Runs after upgrading dependencies"
-    },
     "pre-compile": {
       "name": "pre-compile",
       "description": "Prepare the project for compilation"
-    },
-    "publish:git": {
-      "name": "publish:git",
-      "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
-      "env": {
-        "CHANGELOG": "dist/changelog.md",
-        "RELEASE_TAG_FILE": "dist/releasetag.txt",
-        "PROJECT_CHANGELOG_FILE": "CHANGELOG.md",
-        "VERSION_FILE": "dist/version.txt"
-      },
-      "steps": [
-        {
-          "builtin": "release/update-changelog"
-        },
-        {
-          "builtin": "release/tag-version"
-        },
-        {
-          "exec": "git push --follow-tags origin main"
-        }
-      ],
-      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
     },
     "release": {
       "name": "release",
@@ -246,9 +220,6 @@
         },
         {
           "exec": "git diff --ignore-space-at-eol --exit-code"
-        },
-        {
-          "spawn": "publish:git"
         }
       ]
     },
@@ -288,30 +259,6 @@
       "steps": [
         {
           "builtin": "release/reset-version"
-        }
-      ]
-    },
-    "upgrade": {
-      "name": "upgrade",
-      "description": "upgrade dependencies",
-      "env": {
-        "CI": "0"
-      },
-      "steps": [
-        {
-          "exec": "yarn dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/jest,@types/lodash,@types/node,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,prettier,projen,ts-jest,ts-node,typescript,@iarna/toml,lodash"
-        },
-        {
-          "exec": "yarn install"
-        },
-        {
-          "exec": "yarn up @types/jest @types/lodash @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii prettier projen ts-jest ts-node typescript @iarna/toml lodash aws-cdk-lib constructs"
-        },
-        {
-          "exec": "npx projen"
-        },
-        {
-          "spawn": "post-upgrade"
         }
       ]
     },

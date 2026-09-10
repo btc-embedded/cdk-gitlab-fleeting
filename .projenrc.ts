@@ -13,7 +13,16 @@ const project = new awscdk.AwsCdkConstructLibrary({
   prettier: true,
   repositoryUrl: "https://github.com/btc-embedded/cdk-gitlab-fleeting.git",
   stability: "experimental",
-  github: false, // deps: [],                /* Runtime dependencies of this module. */
+  github: true,
+  githubOptions: {
+    mergify: false,
+  },
+  autoMerge: false,
+  buildWorkflowOptions: {
+    mutableBuild: false,
+  },
+  depsUpgrade: false,
+  pullRequestTemplate: false,
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   devDeps: ["@types/lodash"] /* Build dependencies for this module. */,
   deps: ["lodash", "@iarna/toml"] /* Runtime dependencies of this module. */,
@@ -23,8 +32,25 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ] /* Runtime dependencies of this module that should be bundled. */,
   // packageName: undefined,  /* The "name" in package.json. */
   releaseToNpm: true,
+  npmAccess: javascript.NpmAccess.PUBLIC,
+  npmProvenance: false,
   packageName: "@btc-embedded/cdk-gitlab-fleeting",
-  releaseTrigger: ReleaseTrigger.manual(),
+  releaseEnvironment: "npm",
+  releaseTrigger: ReleaseTrigger.continuous(),
+  workflowNodeVersion: "24.x",
+  workflowBootstrapSteps: [
+    {
+      name: "Bootstrap Node.js for Corepack",
+      uses: "actions/setup-node@v5",
+      with: {
+        "node-version": "24.x",
+      },
+    },
+    {
+      name: "Enable Corepack",
+      run: "corepack enable",
+    },
+  ],
   packageManager: javascript.NodePackageManager.YARN_BERRY,
   yarnBerryOptions: {
     version: "4.12.0",
@@ -34,4 +60,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 });
+project.addPackageIgnore("/.yarn/");
+project.addPackageIgnore("/.yarnrc.yml");
 project.synth();
