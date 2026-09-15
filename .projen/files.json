@@ -4,7 +4,6 @@
     ".gitattributes",
     ".github/workflows/build.yml",
     ".github/workflows/pull-request-lint.yml",
-    ".github/workflows/release-feature-test.yml",
     ".github/workflows/release.yml",
     ".gitignore",
     ".prettierignore",

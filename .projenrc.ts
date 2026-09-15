@@ -38,17 +38,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   packageName: "@btc-embedded/cdk-gitlab-fleeting",
   releaseEnvironment: "npm",
   releaseTrigger: ReleaseTrigger.continuous(),
-  majorVersion: 0,
-  publishDryRun: true,
-  releaseBranches: {
-    "feat/npm-publish": {
-      majorVersion: 0,
-      npmDistTag: "test",
-      prerelease: "test",
-      tagPrefix: "test-v",
-      workflowName: "release-feature-test",
-    },
-  },
   workflowNodeVersion: "24.x",
   workflowBootstrapSteps: [
     {
