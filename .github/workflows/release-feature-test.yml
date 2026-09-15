@@ -97,6 +97,7 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: read
     environment: npm
     if: needs.release.outputs.tag_exists != 'true' && needs.release.outputs.latest_commit == github.sha
@@ -137,5 +138,5 @@ jobs:
         env:
           NPM_DIST_TAG: test
           NPM_REGISTRY: registry.npmjs.org
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TRUSTED_PUBLISHER: "true"
         run: 'echo "DRY RUN: npx -p publib@latest publib-npm"'

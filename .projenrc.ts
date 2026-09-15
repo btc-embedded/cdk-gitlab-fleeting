@@ -34,6 +34,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
   npmProvenance: false,
+  npmTrustedPublishing: true,
   packageName: "@btc-embedded/cdk-gitlab-fleeting",
   releaseEnvironment: "npm",
   releaseTrigger: ReleaseTrigger.continuous(),
