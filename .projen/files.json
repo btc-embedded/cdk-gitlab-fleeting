@@ -2,6 +2,9 @@
   "files": [
     ".eslintrc.json",
     ".gitattributes",
+    ".github/workflows/build.yml",
+    ".github/workflows/pull-request-lint.yml",
+    ".github/workflows/release.yml",
     ".gitignore",
     ".prettierignore",
     ".prettierrc.json",

@@ -3,6 +3,7 @@
 /test-reports/
 junit.xml
 /coverage/
+permissions-backup.acl
 /dist/changelog.md
 /dist/version.txt
 /.prettierignore
@@ -22,6 +23,8 @@ dist
 tsconfig.tsbuildinfo
 /.eslintrc.json
 !.jsii
+/.yarn/
+/.yarnrc.yml
 /.gitattributes
 /.projenrc.ts
 /projenrc
